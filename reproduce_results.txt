@@ -1,15 +1,16 @@
-### reproduce date wise:
+### reproduce Datewise:
 
 python experiments/evaluate.py \
-	--dataset /mnt/d/furan/Documents/Projects/Capstone/entities \
+	--dataset **path to dataset** \
 	--method datewise \
 	--resources resources/datewise \
-	--output /mnt/d/furan/Documents/Projects/Capstone/reproduced_results/entities.datewise.json
+	--output **path to output/entities.datewise.json**
 
 
-### reproduce
+### reproduce date + BART
+
 python experiments/evaluate.py \
-	--dataset /mnt/d/furan/Documents/Projects/Capstone/entities \
+	--dataset **path to dataset** \
 	--method bart \
 	--resources resources/datewise \
-	--output /mnt/d/furan/Documents/Projects/Capstone/reproduced_results/entities.bart.json
+	--output **path to output/entities.bart.json**
