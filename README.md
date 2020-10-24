@@ -1,9 +1,9 @@
-### Capstone Project: News Timeline Summarization
+# Capstone Project: News Timeline Summarization
 
-The code for this project is built on the repository created by Ghalandari and Ifrim's work, Examining the State-of-the-Art in News Timeline Summarization (2020), [available here](https://github.com/complementizer/news-tls)
+The code for this project is built on the repository created by Ghalandari and Ifrim's work, Examining the State-of-the-Art in News Timeline Summarization (2020), [available here](https://github.com/complementizer/news-tls).
 
 
-## Inst
+### Dataset
 All datasets are [available here](https://drive.google.com/drive/folders/1gDAF5QZyCWnF_hYKbxIzOyjT6MSkbQXu?usp=sharing), including:
 * T17
 * Crisis
@@ -22,4 +22,4 @@ pip install -e .
 
 ### Reproduce results
 
-Check reproduce_result.txt for scripts.
+Check reproduce_results.txt for scripts.
