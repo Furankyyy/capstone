@@ -3,8 +3,9 @@ from pathlib import Path
 from tilse.data.timelines import Timeline as TilseTimeline
 from tilse.data.timelines import GroundTruth as TilseGroundTruth
 from tilse.evaluation import rouge
-from news_tls import utils, data, datewise, clust, summarizers
+from news_tls import utils, data, datewise, clust, summarizers, summarizer_new, DateBART
 from pprint import pprint
+
 
 
 def get_scores(metric_desc, pred_tl, groundtruth, evaluator):
@@ -181,6 +182,20 @@ def main(args):
             clip_sents=5,
             unique_dates=True,
         )
+
+    ### Added methods
+    elif args.method == 'bart':
+        resources = Path(args.resources)
+        models_path = resources / 'supervised_date_ranker.{}.pkl'.format(
+            dataset_name
+        )
+        # load regression models for date ranking
+        key_to_model = utils.load_pkl(models_path)
+        date_ranker = datewise.SupervisedDateRanker(method='regression')
+        system = DateBART.DateBART_TimelineGenerator(date_ranker=date_ranker,
+                                                     key_to_model=key_to_model)
+
+
     else:
         raise ValueError(f'Method not found: {args.method}')
 
