@@ -29,7 +29,7 @@ class BART(Summarizer):
         summary_input = (' ').join(truncated)
 
 
-        summary = self.model(summary_input, min_length = 5, max_length=30)[0]['summary_text']
+        summary = self.model(summary_input, min_length = 5, max_length=20)[0]['summary_text']
         summary = sent_tokenize(summary)
         summary = [s.strip() for s in summary]
 

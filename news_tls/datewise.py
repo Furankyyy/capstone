@@ -9,9 +9,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 from news_tls import data, utils, summarizers
 
 
-random.seed(42)
-
-
 class DatewiseTimelineGenerator():
     def __init__(self,
                  date_ranker=None,

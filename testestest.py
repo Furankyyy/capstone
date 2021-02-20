@@ -4,14 +4,13 @@ from scipy import sparse
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
 from sklearn.feature_extraction.text import TfidfVectorizer
-from DateBART import DateBART_TimelineGenerator
-
+from sentence_transformers import SentenceTransformer
 
 dataset = data.Dataset('/mnt/d/furan/Documents/Projects/Capstone/Entities')
 
 #datewise.SupervisedDateRanker(method='regression')
 
-
+"""
 for i, collection in enumerate(dataset.collections):
     testdata = collection
     ref_timelines = [TilseTimeline(tl.date_to_summaries)
@@ -22,49 +21,22 @@ for i, collection in enumerate(dataset.collections):
     testdata.end = end
 
     break
-
 """
-ranker = datewise.MentionCountDateRanker()
-collector = datewise.PM_Mean_SentenceCollector(clip_sents=5,pub_end=2)
-summarizer = summarizers.CentroidOpt()
-summarizer0 = summarizer_new.BART()
 
-ranked_dates = ranker.rank_dates(testdata)
 
-start = testdata.start.date()
-end = testdata.end.date()
-ranked_dates = [d for d in ranked_dates if start <= d <= end]
-
-vectorizer = TfidfVectorizer(stop_words='english', lowercase=True)
-vectorizer.fit([s.raw for a in testdata.articles() for s in a.sentences])
-
-dates_with_sents = collector.collect_sents(
-            ranked_dates,
-            testdata,
-            vectorizer,
-            include_titles=False,
-        )
-
-for i, (d, d_sents) in enumerate(dates_with_sents):
-
-    summary = summarizer.summarize(
-                d_sents,
-                k=1,
-                vectorizer=vectorizer,
-                filter=None
-            )
+# Data
+for i, collection in enumerate(dataset.collections): # iterate over "entity"
+	# Name
     
-    summary_0 = summarizer0.summarize(d_sents)
+    if collection.name=="Tiger_Woods":
+        '''
+        for x in collection.articles():
+            if x.time.year == 2017:
+                print(x.text)
 
-    break
-
-print(summary)
-print(summary_0)
-print(collection.timelines[0])
-"""
-###完整验证 - evaluation
-l = len(ref_dates)
-
-model = DateBART.DateBART_TimelineGenerator()
-
-print(model.predict(testdata,max_dates=l))
+        '''
+    # This is for reference timelines for the entity. Normally should only be one reference timeline.
+    # For entities dataset it is all 1 ref
+        for tl in collection.timelines: 
+            print(tl)
+            print(tl.date_to_summaries)

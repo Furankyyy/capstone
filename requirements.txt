@@ -6,3 +6,5 @@ arrow>=0.13.1
 spacy>=2.1.4
 matplotlib>=3.0.3
 markov_clustering==0.0.6.dev
+sentence-transformers>=0.3.8
+transformers>=3.3.1

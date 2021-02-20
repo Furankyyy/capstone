@@ -3,9 +3,8 @@ from pathlib import Path
 from tilse.data.timelines import Timeline as TilseTimeline
 from tilse.data.timelines import GroundTruth as TilseGroundTruth
 from tilse.evaluation import rouge
-from news_tls import utils, data, datewise, clust, summarizers, summarizer_new, DateBART
+from news_tls import utils, data, datewise, clust, summarizers, summarizer_new, DateBART, collector
 from pprint import pprint
-
 
 
 def get_scores(metric_desc, pred_tl, groundtruth, evaluator):
@@ -114,8 +113,8 @@ def evaluate(tls_model, dataset, result_path, trunc_timelines=False, time_span_e
                 ref_tl=ref_timeline # only oracles need this
             )
 
-            # print('*** PREDICTED ***')
-            # utils.print_tl(pred_timeline_)
+            print('*** PREDICTED ***')
+            utils.print_tl(pred_timeline_)
 
             print('timeline done')
             pred_timeline = TilseTimeline(pred_timeline_.date_to_summaries)
@@ -192,7 +191,9 @@ def main(args):
         # load regression models for date ranking
         key_to_model = utils.load_pkl(models_path)
         date_ranker = datewise.SupervisedDateRanker(method='regression')
+        sent_collector = collector.TransformerSentenceCollector()
         system = DateBART.DateBART_TimelineGenerator(date_ranker=date_ranker,
+                                                     sent_collector=sent_collector,
                                                      key_to_model=key_to_model)
 
 
