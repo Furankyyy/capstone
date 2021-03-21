@@ -9,6 +9,10 @@ from pprint import pprint
 
 def get_scores(metric_desc, pred_tl, groundtruth, evaluator):
 
+    '''
+    Evaluate predicted summary timeline.
+    '''
+
     if metric_desc == "concat":
         return evaluator.evaluate_concat(pred_tl, groundtruth)
     elif metric_desc == "agreement":
@@ -28,6 +32,11 @@ def zero_scores():
 
 
 def evaluate_dates(pred, ground_truth):
+
+    '''
+    Evaluate extracted dates.
+    '''
+
     pred_dates = pred.get_dates()
     ref_dates = ground_truth.get_dates()
     shared = pred_dates.intersection(ref_dates)
@@ -71,6 +80,9 @@ def get_average_results(tmp_results):
 
 
 def evaluate(tls_model, dataset, result_path, trunc_timelines=False, time_span_extension=0):
+    '''
+    Use the specified model to predict summary timeline and evaluate.
+    '''
 
     results = []
     metric = 'align_date_content_costs_many_to_one'
@@ -88,7 +100,6 @@ def evaluate(tls_model, dataset, result_path, trunc_timelines=False, time_span_e
             ref_timelines = data.truncate_timelines(ref_timelines, collection)
 
         for j, ref_timeline in enumerate(ref_timelines):
-
 
             print(f'topic {i+1}/{n_topics}: {topic}, ref timeline {j+1}/{n_ref}')
 

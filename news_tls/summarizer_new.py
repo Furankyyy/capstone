@@ -6,12 +6,19 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 nltk.download('punkt')
 
 class Summarizer:
+    '''
+    Base summarizer class
+    '''
 
     def summarize(self, sents, k, vectorizer, filters=None):
         raise NotImplementedError
 
 
 class BART(Summarizer):
+
+    '''
+    BART summarizer that summarizes input documents.
+    '''
 
     def __init__(self):
         if torch.cuda.is_available():
@@ -29,7 +36,7 @@ class BART(Summarizer):
         summary_input = (' ').join(truncated)
 
 
-        summary = self.model(summary_input, min_length = 5, max_length=20)[0]['summary_text']
+        summary = self.model(summary_input, min_length = 5, max_length = 35)[0]['summary_text']
         summary = sent_tokenize(summary)
         summary = [s.strip() for s in summary]
 

@@ -7,7 +7,7 @@ python experiments/evaluate.py \
 	--output **path to output/entities.datewise.json**
 
 
-### reproduce date + BART
+### reproduce DateBART
 
 python experiments/evaluate.py \
 	--dataset **path to dataset** \

@@ -9,6 +9,10 @@ import datetime
 
 class DateBART_TimelineGenerator():
 
+    '''
+    DateBART pipeline, consists of a date ranking module, a sentence collection module and a BART summarization module.
+    '''
+
     def __init__(self,
                  date_ranker=None,
                  summarizer=None,
@@ -33,6 +37,9 @@ class DateBART_TimelineGenerator():
                 output_body_sents=True):
         
         print('date ranking...')
+
+        # Rank top dates to be included in the timeline.
+        
         ranked_dates = self.date_ranker.rank_dates(collection)
 
         start = collection.start.date()
@@ -43,6 +50,9 @@ class DateBART_TimelineGenerator():
         vectorizer.fit([s.raw for a in collection.articles() for s in a.sentences])
 
         print('candidates & summarization...')
+
+        # Select sentences on each date
+
         dates_with_sents = self.sent_collector.collect_sents(
             ranked_dates,
             collection,
@@ -52,6 +62,8 @@ class DateBART_TimelineGenerator():
 
         timeline = []
         l = 0
+
+        # Summarize sentence on each date with BART
 
         for i, (d, d_sents) in enumerate(dates_with_sents):
 
